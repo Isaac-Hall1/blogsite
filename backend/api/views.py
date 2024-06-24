@@ -10,14 +10,14 @@ from rest_framework.exceptions import NotFound
 from .models import Blog
 
 # Create your views here.
-class myBlogList(APIView):
+class MyBlogList(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         blogs = Blog.objects.filter(authoer=self.request.user)
-        serializer = blogSerailizer(blogs.data, many=True)
+        serializer = blogSerailizer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class deleteBlog(APIView):
+class DeleteBlog(APIView):
     permission_classes = [AllowAny]
     def delete(self, request, pk):
         try:
@@ -27,15 +27,15 @@ class deleteBlog(APIView):
         except Blog.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-class totalBlogList(APIView):
+class TotalBlogList(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         blogs = Blog.objects.all()
-        serializer = blogSerailizer(blogs.data, many=True)
+        serializer = blogSerailizer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class blogPostCreate(APIView):
-    permission_classes = [AllowAny]
+class BlogPostCreate(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = blogSerailizer(data=request.data)
         if serializer.is_valid():
@@ -57,7 +57,7 @@ class CreateUserView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class deleteUserView(APIView):
+class DeleteUserView(APIView):
     permission_classes = [AllowAny]
     def delete(self, request, pk): 
         try:
