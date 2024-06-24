@@ -11,7 +11,7 @@ from .models import Blog
 
 # Create your views here.
 class MyBlogList(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         blogs = Blog.objects.filter(authoer=self.request.user)
         serializer = blogSerailizer(blogs, many=True)
