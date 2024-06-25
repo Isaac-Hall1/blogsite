@@ -7,13 +7,28 @@ from .serializers import userSerializer, blogSerailizer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.exceptions import NotFound
+from django.db.models import F
 from .models import Blog
 
 # Create your views here.
+class UpdateUpvotes(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        vote = request.data.get('vote')
+        bId = request.data.get('blogId')
+        try:
+            vote = int(vote)
+            bId = int(bId)
+        except (ValueError, TypeError):
+            return Response({'error': 'Invalid vote or blog id values'}, status=status.HTTP_400_BAD_REQUEST)
+        blogs = Blog.objects.filter(id = bId).update(upvotes=F('upvotes')+vote)
+        return Response(blogs.data, status=status.HTTP_202_ACCEPTED)
+
+
 class MyBlogList(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        blogs = Blog.objects.filter(authoer=self.request.user)
+        blogs = Blog.objects.filter(author=self.request.user)
         serializer = blogSerailizer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
