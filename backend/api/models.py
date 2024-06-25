@@ -6,6 +6,8 @@ class Blog(models.Model):
     title = models.CharField(max_length=80)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    upvotes = models.IntegerField()
+    comments = models.TextField()
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
 
     def __str__(self):

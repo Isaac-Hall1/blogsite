@@ -35,7 +35,7 @@ class TotalBlogList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BlogPostCreate(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def post(self, request):
         serializer = blogSerailizer(data=request.data)
         if serializer.is_valid():
