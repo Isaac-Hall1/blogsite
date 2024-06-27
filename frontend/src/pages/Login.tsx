@@ -1,7 +1,7 @@
+import Form from '../components/LoginForms'
+
 function Login(){
-  return( <div>
-    Login    
-  </div> )
+  return <Form method="Login"/>;
 }
 
 export default Login

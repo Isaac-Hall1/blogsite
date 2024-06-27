@@ -1,7 +1,7 @@
+import BlogForm from "../components/Blogs"
+
 function CreateBlogPost(){
-  return( <div>
-    Create Blog Post    
-  </div> )
+  return <BlogForm/>
 }
 
 export default CreateBlogPost

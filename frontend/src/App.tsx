@@ -1,11 +1,12 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import MustLogin from './pages/MustLogin'
 import MyPosts from './pages/MyPosts'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
+import CreateBlogPost from './pages/CreateBlog'
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route
           path='/login'
           element={<Login />}
+        />
+        <Route
+          path='/CreateBlog'
+          element={<CreateBlogPost />}
         />
         <Route
           path='/register'
