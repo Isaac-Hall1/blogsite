@@ -24,6 +24,15 @@ class UpdateUpvotes(APIView):
         blogs = Blog.objects.filter(id = bId).update(upvotes=F('upvotes')+vote)
         return Response(blogs.data, status=status.HTTP_202_ACCEPTED)
 
+class SpecificBlog(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        try:
+            blogs = Blog.objects.get(id=request.data)
+            serializer = blogSerailizer(blogs, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Blog.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 class MyBlogList(APIView):
     permission_classes = [IsAuthenticated]
@@ -76,8 +85,9 @@ class DeleteUserView(APIView):
     permission_classes = [AllowAny]
     def delete(self, request, pk): 
         try:
-            user = User.objects.get(id=pk)
-            user.delete
+            #user = User.objects.get(id=pk)
+            user = User.objects.all()
+            user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except User.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)

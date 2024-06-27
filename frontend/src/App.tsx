@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route
+        <Route
           path='/logout'
           element={<Logout />}
         />
