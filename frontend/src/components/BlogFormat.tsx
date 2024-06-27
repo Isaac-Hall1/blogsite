@@ -3,9 +3,10 @@ import React from 'react'
 interface myProps {
     Blog: {
         author: number,
+        bId: number,
         title: string,
         content: string,
-        created_at: Date,
+        created_at: string,
         upvotes: number
     }
 }
@@ -17,7 +18,7 @@ const Blog: React.FC<myProps> = ({ Blog }) => {
         <p className='blog-title'>{Blog.title}</p>
         <p className='blog-content'>{Blog.content}</p>
         <p className='blog-date'>{formattedDate}</p>
-        <p className='blog-date'>{Blog.upvotes}</p>
+        <p className='blog-upvotes'>{Blog.upvotes}</p>
     </div>
 }
 

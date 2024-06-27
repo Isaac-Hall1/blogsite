@@ -1,27 +1,20 @@
 import { useEffect, useState } from "react"
 import api from "../api"
 import Blog from "../components/BlogFormat"
+import { useParams } from 'react-router-dom';
 
-interface myProps {
-    bId: number
-}
-
-
-const BlogView: React.FC<myProps> = ({bId}) => {
-    const [blog, setBlog] = useState<blogData | null>(null)
+function BlogView(){
+    const [blog, setBlog] = useState({author: -1, bId: -1, title: '', content: '', created_at: '', upvotes: -1})
     const [authorName, setAuthorName] = useState('')
+    let { bId } = useParams()
+    let blogId = Number(bId)
+
 
     useEffect(() => {
-        getBlog(bId);
+        getBlog(blogId);
+        if(blog.author)
+            getAuthor(blog.author)
     }, [])
-
-    type blogData = {
-        author: number,
-        title: string,
-        content:string,
-        upvotes: number,
-        created_at: Date,
-    }
     
     type User = {
         id: number,
@@ -31,11 +24,11 @@ const BlogView: React.FC<myProps> = ({bId}) => {
     const getBlog = (bId: number) => {
         api.post('/api/blog/post/', { bId })
         .then((res) => res.data)
-        .then((data: blogData) => {setBlog(data)})
+        .then((data) => {setBlog(data)})
         .catch((err) => alert(err))
     }
 
-    const getAuthor = (authorId: number) => {
+    const getAuthor = (authorId: number ) => {
         api.get('/api/user/register/')
         .then((res) => res.data)
         .then((data) => {
@@ -52,6 +45,7 @@ const BlogView: React.FC<myProps> = ({bId}) => {
     <div>
         <div>
             <p>{authorName}</p>
+            <Blog Blog={blog}/>
         </div>
     </div>
     );

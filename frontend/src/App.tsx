@@ -6,6 +6,7 @@ import MyPosts from './pages/MyPosts'
 import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import CreateBlogPost from './pages/CreateBlog'
+import BlogView from './pages/BlogView'
 
 function Logout() {
   localStorage.clear()
@@ -19,6 +20,10 @@ function App() {
         <Route
           path='/logout'
           element={<Logout />}
+        />
+        <Route
+          path='/blogname'
+          element={<BlogView bId={-1}/>}
         />
         <Route
           path='/home'
