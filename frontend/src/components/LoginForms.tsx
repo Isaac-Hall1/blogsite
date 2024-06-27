@@ -22,6 +22,7 @@ const Form: React.FC<myProps> = ({method}) => {
 
         try{
             if(method === 'Register'){
+                localStorage.clear()
                 await api.post('/api/user/register/', {username,password})
             }
             const res:loginResponse = await api.post('/api/token/', {username, password})
