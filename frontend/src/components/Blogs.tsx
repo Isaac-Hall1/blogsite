@@ -1,18 +1,20 @@
 import { FormEvent, useState } from "react";
 import api from '../api'
+import RefreshToken from "./RefreshToken";
 
 function BlogForm(){
     const [title, setTitle] = useState("")
-    const [text, setText] = useState("")
+    const [content, setContent] = useState("")
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        await api.post('/api/blog/', {title, text})
+        RefreshToken();
+        await api.post('/api/blog/', {title, content})
         .then((res) => {
             if(res.status !== 201) alert('failed to create note')
             alert('created note')
             setTitle('')
-            setText('')
+            setContent('')
         })
         .catch((error) => alert(error))
     }
@@ -30,8 +32,8 @@ function BlogForm(){
             <input
                 className="form-input"
                 type = 'text'
-                value={text}
-                onChange={(e) => setText(e.target.value)}
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
                 placeholder="Text"
             />
             <button className="form-button" type='submit'>Create Blog</button>

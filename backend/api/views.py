@@ -42,7 +42,7 @@ class MyBlogList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class DeleteBlog(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def delete(self, request, pk):
         try:
             blog = Blog.objects.get(id=pk)
@@ -59,7 +59,7 @@ class TotalBlogList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class BlogPostCreate(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = blogSerailizer(data=request.data)
         if serializer.is_valid():
@@ -82,7 +82,7 @@ class CreateUserView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class DeleteUserView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def delete(self, request, pk): 
         try:
             #user = User.objects.get(id=pk)

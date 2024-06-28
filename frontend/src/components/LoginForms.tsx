@@ -13,8 +13,8 @@ const Form: React.FC<myProps> = ({method}) => {
     const navigate = useNavigate()
 
     interface loginResponse {
-        accessToken: string,
-        refreshToken: string
+        access: string,
+        refresh: string
     }
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
@@ -25,10 +25,15 @@ const Form: React.FC<myProps> = ({method}) => {
                 localStorage.clear()
                 await api.post('/api/user/register/', {username,password})
             }
-            const res:loginResponse = await api.post('/api/token/', {username, password})
-            localStorage.setItem(ACCESS_TOKEN, res.accessToken)
-            localStorage.setItem(REFRESH_TOKEN, res.refreshToken)
-            navigate('/home')
+            await api.post('/api/token/', {username, password})
+            .then((res) => res.data)
+            .then((data: loginResponse) => {
+                    localStorage.setItem(ACCESS_TOKEN, data.access)
+                    localStorage.setItem(REFRESH_TOKEN, data.refresh)
+                    console.log(localStorage.getItem(ACCESS_TOKEN))
+                    navigate('/home')
+                }
+            )
         } catch (error){
             alert(error)
         }

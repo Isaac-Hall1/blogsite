@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import api from "../api"
 import Blog from "../components/BlogFormat"
 import { useParams } from 'react-router-dom';
+import RefreshToken from "../components/RefreshToken";
+import { Navigate } from "react-router-dom";
 
 function BlogView(){
     const [blog, setBlog] = useState({author: -1, bId: -1, title: '', content: '', created_at: '', upvotes: -1})
@@ -11,9 +13,14 @@ function BlogView(){
 
 
     useEffect(() => {
-        getBlog(blogId);
-        if(blog.author)
-            getAuthor(blog.author)
+        useEffect(() => {
+            // Call RefreshToken function when the component mounts
+            RefreshToken()
+            getBlog(blogId);
+            if (blog.author) {
+                getAuthor(blog.author);
+            }
+        }, []);
     }, [])
     
     type User = {
