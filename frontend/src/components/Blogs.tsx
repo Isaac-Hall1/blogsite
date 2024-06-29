@@ -1,14 +1,14 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, useEffect } from "react";
 import api from '../api'
 import RefreshToken from "./RefreshToken";
 
 function BlogForm(){
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
+    
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
-        RefreshToken();
         await api.post('/api/blog/', {title, content})
         .then((res) => {
             if(res.status !== 201) alert('failed to create note')

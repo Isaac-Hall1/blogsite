@@ -22,8 +22,8 @@ function App() {
           element={<Logout />}
         />
         <Route
-          path='/blogname'
-          element={<BlogView bId={-1}/>}
+          path='/blogname/:bId'
+          element={<BlogView />}
         />
         <Route
           path='/home'

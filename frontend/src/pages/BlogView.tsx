@@ -13,14 +13,12 @@ function BlogView(){
 
 
     useEffect(() => {
-        useEffect(() => {
-            // Call RefreshToken function when the component mounts
-            RefreshToken()
-            getBlog(blogId);
-            if (blog.author) {
-                getAuthor(blog.author);
+        // Call RefreshToken function when the component mounts
+        RefreshToken()
+        getBlog(blogId);
+        if (blog.author) {
+            getAuthor(blog.author);
             }
-        }, []);
     }, [])
     
     type User = {
