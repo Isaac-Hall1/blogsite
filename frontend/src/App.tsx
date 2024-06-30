@@ -22,12 +22,12 @@ function App() {
           element={<Logout />}
         />
         <Route
-          path='/blogname/:bId'
-          element={<BlogView />}
-        />
-        <Route
           path='/home'
           element={<Home />}
+        />
+        <Route
+          path='/blogname/:bId'
+          element={<BlogView />}
         />
         <Route
           path='/login'

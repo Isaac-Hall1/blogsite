@@ -7,6 +7,7 @@ from .serializers import userSerializer, blogSerailizer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.exceptions import NotFound
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
 from .models import Blog
 
@@ -27,12 +28,13 @@ class UpdateUpvotes(APIView):
 class SpecificBlog(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
+        blogId = request.GET.get('id')
         try:
-            blogs = Blog.objects.get(id=request.data)
-            serializer = blogSerailizer(blogs, many=True)
+            blog = Blog.objects.get(id=int(blogId))
+            serializer = blogSerailizer(blog)
             return Response(serializer.data, status=status.HTTP_200_OK)
-        except Blog.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        except (ValueError, ObjectDoesNotExist):
+            return Response({'error': 'Blog not found'},status=status.HTTP_404_NOT_FOUND)
 
 class MyBlogList(APIView):
     permission_classes = [IsAuthenticated]
