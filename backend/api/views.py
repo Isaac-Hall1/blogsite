@@ -3,15 +3,29 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-from .serializers import userSerializer, blogSerailizer
+from .serializers import userSerializer, blogSerailizer, CommentSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
-from .models import Blog
+from .models import Blog, Comment
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
+class CreateComment(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(post=request.data.get('bId'), author=self.request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request):
+        comments = Comment.objects.filter(post=request.data)
+        serialzer = CommentSerializer(comments, many=True)
+        return Response(serialzer.data, status=status.HTTP_200_OK)
+
 class UpdateUpvotes(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
@@ -39,7 +53,7 @@ class SpecificBlog(APIView):
 class MyBlogList(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        blogs = Blog.objects.filter(author=self.request.user)
+        blogs = request.user.blogs.all()
         serializer = blogSerailizer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

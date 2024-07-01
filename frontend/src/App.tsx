@@ -30,7 +30,7 @@ function App() {
             element={<Home />}
           />
           <Route
-            path='/blogname/:bId'
+            path='/blog/:bId'
             element={<BlogView />}
           />
           <Route

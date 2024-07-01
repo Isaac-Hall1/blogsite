@@ -35,7 +35,10 @@ const Form: React.FC<myProps> = ({method}) => {
                 }
             )
         } catch (error){
-            alert(error)
+            if(method === 'Register')
+                alert('Your password must be at least 9 characters long or your username is already in use')
+            else
+                alert('Login information typed incorrectly or account not on file')
         }
     }
 
