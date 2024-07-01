@@ -26,7 +26,7 @@ class UpdateUpvotes(APIView):
         return Response(blogs.data, status=status.HTTP_202_ACCEPTED)
 
 class SpecificBlog(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def get(self, request):
         blogId = request.GET.get('id')
         try:

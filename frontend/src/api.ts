@@ -3,7 +3,6 @@ import { ACCESS_TOKEN } from "./constants";
 import refreshAccessToken from "./components/RefreshToken";
 
 const baseURL: string = import.meta.env.VITE_API_URL;
-
 const api = axios.create({
   baseURL: baseURL,
 })

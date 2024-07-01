@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import Register from './pages/Register'
 import CreateBlogPost from './pages/CreateBlog'
 import BlogView from './pages/BlogView'
+import IsLoggedIn from './components/ProtectedRoute'
 
 function Logout() {
   localStorage.clear()
@@ -35,7 +36,11 @@ function App() {
         />
         <Route
           path='/CreateBlog'
-          element={<CreateBlogPost />}
+          element={
+            <IsLoggedIn>
+              <CreateBlogPost />
+            </IsLoggedIn>
+          }
         />
         <Route
           path='/register'
@@ -47,7 +52,11 @@ function App() {
         />
         <Route
           path='/myposts'
-          element={<MyPosts />}
+          element={
+            <IsLoggedIn>
+              <MyPosts />
+            </IsLoggedIn>
+          }
         />
         <Route
           path='*'

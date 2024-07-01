@@ -8,9 +8,7 @@ async function refreshAccessToken() {
       localStorage.setItem(ACCESS_TOKEN, response.data.access);
       return response.data.access;
     } catch (error) {
-      console.error('Unable to refresh token', error);
-      // Optionally, you can redirect the user to the login page
-      return null;
+      console.error('Unable to refresh token or not allowed', error);
     }
 }
 export default refreshAccessToken
