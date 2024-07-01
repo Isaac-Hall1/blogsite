@@ -8,6 +8,7 @@ import Register from './pages/Register'
 import CreateBlogPost from './pages/CreateBlog'
 import BlogView from './pages/BlogView'
 import IsLoggedIn from './components/ProtectedRoute'
+import NavBar from './components/NavBar'
 
 function Logout() {
   localStorage.clear()
@@ -16,54 +17,57 @@ function Logout() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path='/logout'
-          element={<Logout />}
-        />
-        <Route
-          path='/home'
-          element={<Home />}
-        />
-        <Route
-          path='/blogname/:bId'
-          element={<BlogView />}
-        />
-        <Route
-          path='/login'
-          element={<Login />}
-        />
-        <Route
-          path='/CreateBlog'
-          element={
-            <IsLoggedIn>
-              <CreateBlogPost />
-            </IsLoggedIn>
-          }
-        />
-        <Route
-          path='/register'
-          element={<Register />}
-        />
-        <Route
-          path='/mustlogin'
-          element={<MustLogin />}
-        />
-        <Route
-          path='/myposts'
-          element={
-            <IsLoggedIn>
-              <MyPosts />
-            </IsLoggedIn>
-          }
-        />
-        <Route
-          path='*'
-          element={<NotFound />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <NavBar/>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path='/logout'
+            element={<Logout />}
+          />
+          <Route
+            path='/home'
+            element={<Home />}
+          />
+          <Route
+            path='/blogname/:bId'
+            element={<BlogView />}
+          />
+          <Route
+            path='/login'
+            element={<Login />}
+          />
+          <Route
+            path='/CreateBlog'
+            element={
+              <IsLoggedIn>
+                <CreateBlogPost />
+              </IsLoggedIn>
+            }
+          />
+          <Route
+            path='/register'
+            element={<Register />}
+          />
+          <Route
+            path='/mustlogin'
+            element={<MustLogin />}
+          />
+          <Route
+            path='/myposts'
+            element={
+              <IsLoggedIn>
+                <MyPosts />
+              </IsLoggedIn>
+            }
+          />
+          <Route
+            path='*'
+            element={<NotFound />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </div>
   )
 }
 
