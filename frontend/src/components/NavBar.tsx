@@ -11,6 +11,20 @@ function NavBar(){
                 <li className="userPosts">
                     <a href='http://localhost:5173/myposts'>Your Posts</a>
                 </li>
+                <li>
+                    <a href="#">User Settings</a>
+                    <ul>
+                        <li>
+                            <a href="http://localhost:5173/register">Register</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:5173/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:5173/logout">Logout</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     );

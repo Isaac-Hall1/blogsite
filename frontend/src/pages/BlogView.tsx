@@ -3,13 +3,12 @@ import api from "../api"
 import Blog from "../components/BlogFormat"
 import { useNavigate, useParams } from 'react-router-dom';
 import Comment from "../components/CommentFormat";
-import refreshAccessToken from "../components/RefreshToken";
 import CreateComment from "../components/CreateComment";
 import { ACCESS_TOKEN, BLOGID } from "../constants";
 
 interface BlogType {
     author: number,
-    bId: number,
+    id: number,
     title: string,
     content: string,
     created_at: string,
@@ -27,7 +26,7 @@ const commentArray: CommentType[] = []
 
 const blogObject: BlogType = {
     author : -1,
-    bId: -1,
+    id: -1,
     title: '',
     content: '',
     created_at: '',
