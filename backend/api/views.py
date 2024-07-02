@@ -13,18 +13,27 @@ from .models import Blog, Comment
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
+class ViewComments(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        post = request.query_params.get('post')
+        try:
+            blog = Blog.objects.get(id=int(post))
+            comments = Comment.objects.filter(post=blog)
+            serialzer = CommentSerializer(comments, many=True)
+            return Response(serialzer.data, status=status.HTTP_200_OK)
+        except Comment.DoesNotExist:
+            return Response({'error': 'error loading comments'}, status=status.HTTP_404_NOT_FOUND)
+
 class CreateComment(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
         serializer = CommentSerializer(data=request.data)
+        blog = Blog.objects.get(id=request.data.get('post'))
         if serializer.is_valid():
-            serializer.save(post=request.data.get('bId'), author=self.request.user)
+            serializer.save(post=blog, author=self.request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.error, status=status.HTTP_400_BAD_REQUEST)
-    def get(self, request):
-        comments = Comment.objects.filter(post=request.data)
-        serialzer = CommentSerializer(comments, many=True)
-        return Response(serialzer.data, status=status.HTTP_200_OK)
+        return Response({'error': 'issue'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UpdateUpvotes(APIView):
     permission_classes = [IsAuthenticated]
@@ -58,7 +67,7 @@ class MyBlogList(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class DeleteBlog(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def delete(self, request, pk):
         try:
             blog = Blog.objects.get(id=pk)

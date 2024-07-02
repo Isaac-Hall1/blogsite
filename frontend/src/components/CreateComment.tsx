@@ -2,19 +2,19 @@ import { FormEvent, useState } from "react"
 import api from "../api"
 
 interface MyProps {
-    bId: number
+    post: number
 }
 
-const CreateComment: React.FC<MyProps> = ({bId}) => {
+const CreateComment: React.FC<MyProps> = ({post}) => {
     const [content, setContent] = useState('')
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()
-        await api.post('/api/blog/comments/', {bId, content})
+        await api.post('/api/blog/createComment/', {post, content})
         .then((res)=>{
             if(res.status !== 201) alert('failed to create comment')
         })
-        .catch((error) => alert(error))
+        .catch((error) => console.log(error))
     }
 
     return (

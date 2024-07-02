@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Comment from "../components/CommentFormat";
 import refreshAccessToken from "../components/RefreshToken";
 import CreateComment from "../components/CreateComment";
-import { BLOGID } from "../constants";
+import { ACCESS_TOKEN, BLOGID } from "../constants";
 
 interface BlogType {
     author: number,
@@ -82,7 +82,7 @@ function BlogView(){
     }
 
     const getComments = (bId: number) => {
-        api.get('/api/blog/comments/', {params:bId} )
+        api.get('/api/blog/comments/', {params:{post: bId}} )
         .then((res) => res.data)
         .then((data: CommentType[]) => {
             setComments(data)
@@ -112,18 +112,17 @@ function BlogView(){
     }
 
     const handleCreateComment = async (): Promise<void> => {
-        try{
-            await refreshAccessToken()
+        const token: string | null = localStorage.getItem(ACCESS_TOKEN)
+        if(token){
             setCreatingComment(!creatingComment)
             if(creatingComment)
                 setContent('See Comments')
             else
                 setContent('Create Comment')
-        }
-        catch{
-            alert('You must be logged in to create a comment')
+        } else {
             navigate('/mustlogin')
         }
+        
     }
 
     if(loading){
@@ -139,7 +138,7 @@ function BlogView(){
             {creatingComment ? (
                     comments.map((comment) => <Comment Comment={comment} key={comment.cId}/>)
                 ) : (
-                    <CreateComment bId={blogId}/>
+                    <CreateComment post={blogId}/>
                 )
             }
         </div>
