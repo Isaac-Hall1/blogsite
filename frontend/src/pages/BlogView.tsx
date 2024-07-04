@@ -12,7 +12,7 @@ interface BlogType {
     title: string,
     content: string,
     created_at: string,
-    upvotes: number,
+    upvoteValue: number,
 }
 
 interface CommentType {
@@ -30,7 +30,7 @@ const blogObject: BlogType = {
     title: '',
     content: '',
     created_at: '',
-    upvotes: -1
+    upvoteValue: -1
 }
 
 interface User  {

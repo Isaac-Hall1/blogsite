@@ -5,7 +5,7 @@ from .models import Blog, Comment
 class blogSerailizer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = ['id', 'title', 'content', 'created_at', 'author', 'upvotes']
+        fields = ['id', 'title', 'content', 'created_at', 'author', 'upvoteValue']
         extra_kwargs = {'author': {'read_only': True}}
 
 class userSerializer(serializers.ModelSerializer):
@@ -22,3 +22,5 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'post', 'content', 'author', 'created_at']
         extra_kwargs = {'author': {'read_only': True}}
+
+

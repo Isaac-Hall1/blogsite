@@ -1,4 +1,8 @@
+import {useState} from 'react'
+
 function NavBar(){
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(true)
+
     return(
         <div className="nav">
             <ul className="navElements">

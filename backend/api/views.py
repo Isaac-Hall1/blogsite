@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import F
-from .models import Blog, Comment
+from .models import Blog, Comment, Upvotes
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -45,8 +45,25 @@ class UpdateUpvotes(APIView):
             bId = int(bId)
         except (ValueError, TypeError):
             return Response({'error': 'Invalid vote or blog id values'}, status=status.HTTP_400_BAD_REQUEST)
-        blogs = Blog.objects.filter(id = bId).update(upvotes=F('upvotes')+vote)
-        return Response(blogs.data, status=status.HTTP_202_ACCEPTED)
+        blog = Blog.objects.get(id=bId)
+        user = self.request.user
+        upvote, created = Upvotes.objects.get_or_create(author=user, blog=blog)
+
+        if not created:
+            if (vote == 1 and upvote.isUpvote) or(vote == -1 and not upvote.isUpvote):
+                upvote.delete()
+                blogs = Blog.objects.filter(id = bId).update(upvoteValue=F('upvoteValue')-vote)
+                return Response('unvoted', status=status.HTTP_202_ACCEPTED)
+            vote *= 2
+            upvote.isUpvote = not upvote.isUpvote
+            upvote.save()
+            blogs = Blog.objects.filter(id = bId).update(upvoteValue=F('upvoteValue')+vote)
+            return Response('changed', status=status.HTTP_202_ACCEPTED)
+        if(vote == -1):
+            upvote.isUpvote = not upvote.isUpvote
+            upvote.save()
+        blogs = Blog.objects.filter(id = bId).update(upvoteValue=F('upvoteValue')+vote)
+        return Response('voted', status=status.HTTP_202_ACCEPTED)
 
 class SpecificBlog(APIView):
     permission_classes = [AllowAny]
@@ -70,7 +87,7 @@ class DeleteBlog(APIView):
     permission_classes = [AllowAny]
     def delete(self, request, pk):
         try:
-            blog = Blog.objects.get(id=pk)
+            blog = Blog.objects.all(id=pk)
             blog.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Blog.DoesNotExist:
