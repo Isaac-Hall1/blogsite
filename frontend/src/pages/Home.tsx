@@ -21,7 +21,7 @@ function Home(){
   return( 
   <div>
     <h2>Blogs</h2>
-    {blogs.map((blog) => <Blog Blog={blog}/>)}
+    {blogs.map((blog) => <Blog Blog={blog} mypost={false}/>)}
   </div>
   );
 }

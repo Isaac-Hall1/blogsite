@@ -33,15 +33,10 @@ const blogObject: BlogType = {
     upvoteValue: -1
 }
 
-interface User  {
-    id: number,
-    username: string,
-}
 
 
 function BlogView(){
     const [blog, setBlog] = useState<BlogType>(blogObject)
-    const [authorName, setAuthorName] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(true)
     const [comments, setComments] = useState<CommentType[]>(commentArray)
     const [content, setContent] = useState<string>('Create Comment')
@@ -55,10 +50,6 @@ function BlogView(){
 
     useEffect(() => {
         getBlog(blogId);
-        if (blog.author && blog.author !== -1) {
-            console.log(blog.author)
-            getAuthor(blog.author);
-            }
         getComments(blogId)
     }, [blog.author])
     
@@ -98,18 +89,6 @@ function BlogView(){
         .replace(/-+$/, '');
     }
 
-    const getAuthor = (authorId: number ) => {
-        api.get('/api/user/register/')
-        .then((res) => res.data)
-        .then((data: User[]) => {
-            const user = data.find((user: User) => user.id === authorId)
-            if(user){
-                setAuthorName(user.username)
-            }
-        })
-        .catch((err) => console.log(err))
-    }
-
     const handleCreateComment = async (): Promise<void> => {
         const token: string | null = localStorage.getItem(ACCESS_TOKEN)
         if(token){
@@ -131,8 +110,7 @@ function BlogView(){
     return (
     <div>
         <div>
-            <p>{authorName}</p>
-            <Blog Blog={blog}/>
+            <Blog Blog={blog} mypost={false}/>
             <button onClick={handleCreateComment}>{content}</button>
             {creatingComment ? (
                     comments.map((comment) => <Comment Comment={comment} key={comment.cId}/>)
