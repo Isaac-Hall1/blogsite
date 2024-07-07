@@ -21,7 +21,7 @@ function MyPosts(){
   return( 
   <div>
     <h2>My Blogs</h2>
-    {blogs.map((blog) => <Blog Blog={blog} mypost={true}/>)}
+    {blogs.map((blog) => <Blog Blog={blog} mypost={true} blogview={false}/>)}
   </div>
   );
 }

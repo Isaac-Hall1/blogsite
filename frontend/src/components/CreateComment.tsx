@@ -8,7 +8,6 @@ interface MyProps {
 
 const CreateComment: React.FC<MyProps> = ({post}) => {
     const [content, setContent] = useState('')
-    const nav = useNavigate()
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()

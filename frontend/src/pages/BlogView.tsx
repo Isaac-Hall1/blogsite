@@ -110,7 +110,7 @@ function BlogView(){
     return (
     <div>
         <div>
-            <Blog Blog={blog} mypost={false}/>
+            <Blog Blog={blog} mypost={false} blogview={true}/>
             <button onClick={handleCreateComment}>{content}</button>
             {creatingComment ? (
                     comments.map((comment) => <Comment Comment={comment} key={comment.cId}/>)
