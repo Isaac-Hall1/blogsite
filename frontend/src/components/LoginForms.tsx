@@ -45,24 +45,30 @@ const Form: React.FC<myProps> = ({method}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <h1>{method}</h1>
-            <input
-                className="form-input"
-                type= 'text'
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Username"
-            />
-            <input
-                className="form-input"
-                type = 'password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Password"
-            />
-            <button className="form-button" type='submit'>{method}</button>
-        </form>
+        <div className="w-full max-w-md p-4 rounded-lg shadow sm:p-6 md:p-8 bg-gray-800 border-gray-700">
+            <form onSubmit={handleSubmit} className="space-y-16">
+                <h1 className="text-3xl font-medium text-white">{method}</h1>
+                    <div>
+                        <input
+                            className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                            type= 'text'
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Username"
+                        />
+                    </div>
+                    <div>
+                        <input
+                            className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                            type = 'password'
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Password"
+                        />
+                    </div>
+                <button className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type='submit'>{method}</button>
+            </form>
+        </div>
     )
 }
 

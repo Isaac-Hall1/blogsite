@@ -102,12 +102,12 @@ const Blog: React.FC<myProps> = ({ Blog, mypost, blogview}) => {
                             <p className='truncate'>{formattedDate}</p>
                         </div>
                         <div className='w-1/3'>
-                            {mypost ? (<button onClick={deleteForm}>Delete</button>) : (<p className='truncate'>{authorName}</p>)}
+                            {mypost ? (<button className='text-black rounded-sm px-2 bg-red-700' onClick={deleteForm}>Delete</button>) : (<p className='truncate'>{authorName}</p>)}
                         </div>
                         <div className='w-1/3 flex justify-center'>
-                            <button className='px-2 text-right hover:cursor-pointer' data-action='upvote' onClick={changeUpvotes}>Upvote</button>
-                                <p className='truncate'>{upvote}</p>
-                            <button className='px-2 text-left hover:cursor-pointer' data-action='downvote' onClick={changeUpvotes}>Downvote</button>
+                            <button className='text-black rounded-sm px-2 text-right hover:cursor-pointer bg-green-400' data-action='upvote' onClick={changeUpvotes}>Upvote</button>
+                                <p className='truncate px-2'>{upvote}</p>
+                            <button className='text-black rounded-sm px-2 text-left hover:cursor-pointer bg-red-600' data-action='downvote' onClick={changeUpvotes}>Downvote</button>
                         </div>
                     </div>
                 </div>
