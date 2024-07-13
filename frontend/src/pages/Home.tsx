@@ -15,7 +15,7 @@ function Home(){
     api.get('/api/blog/posts/')
     .then((res) => res.data)
     .then((data) =>{ setBlogs(data) })
-    .catch((err) => alert(err));
+    .catch((err) => console.log(err));
   };
 
   return( 

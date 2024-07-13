@@ -99,7 +99,7 @@ class DeleteBlog(APIView):
 class TotalBlogList(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        blogs = Blog.objects.all()
+        blogs = Blog.objects.all()[::-1]
         serializer = blogSerailizer(blogs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

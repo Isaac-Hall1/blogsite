@@ -25,6 +25,10 @@ api.interceptors.response.use((response) => {
 }, async (error) => {
   const originalRequest = error.config;
   if (error.response.status === 401 && !originalRequest._retry) {
+    if(originalRequest.url === '/api/token/refresh/'){
+      localStorage.clear()
+      window.location.reload
+    }
     originalRequest._retry = true;
     const newAccessToken = await refreshAccessToken();
     if (newAccessToken) {

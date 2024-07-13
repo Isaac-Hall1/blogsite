@@ -11,8 +11,8 @@ function NavBar(){
                     <a href='http://localhost:5173/myposts' className="  focus:text-teal-600 inline-block mt-0 text-teal-200 hover:text-white mr-4">Your Posts</a>
                 </div>
                 <div className="max-w-lg mx-auto">
-                    <details className="open:bg-slate-800 open:ring-1 open:ring-black/5 open:shadow-lg p-6 rounded-lg" >
-                        <summary className=" text-teal-200 hover:cursor-pointer text-sm leading-6 open:text-teal-600 font-semibold select-none">
+                    <details className="open:ring-1 open:ring-slate-900 open:shadow-lg p-3 rounded-lg" >
+                        <summary className=" hover:text-white text-teal-200 hover:cursor-pointer text-sm leading-6 open:text-teal-600 font-semibold select-none">
                             User Settings
                         </summary>
                         <div className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400">
