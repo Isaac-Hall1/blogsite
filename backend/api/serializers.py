@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Blog, Comment
+from .models import Blog, Comment, Upvotes
 
 class blogSerailizer(serializers.ModelSerializer):
     class Meta:
@@ -22,5 +22,10 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'post', 'content', 'author', 'created_at']
         extra_kwargs = {'author': {'read_only': True}}
+
+class UpvoteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Upvotes
+        fields = ['blog', 'author', 'isUpvote']
 
 

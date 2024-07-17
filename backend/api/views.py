@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-from .serializers import userSerializer, blogSerailizer, CommentSerializer
+from .serializers import userSerializer, blogSerailizer, CommentSerializer, UpvoteSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.exceptions import NotFound
@@ -13,6 +13,13 @@ from .models import Blog, Comment, Upvotes
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
+class UpvotesGet(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        upvotes = Upvotes.objects.filter(author=self.request.user)
+        serializer = UpvoteSerializer(upvotes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class ViewComments(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
@@ -49,7 +56,6 @@ class UpdateUpvotes(APIView):
             blog = Blog.objects.get(id=bId)
             user = self.request.user
             upvote, created = Upvotes.objects.get_or_create(author=user, blog=blog)
-
             if not created:
                 if (vote == 1 and upvote.isUpvote) or(vote == -1 and not upvote.isUpvote):
                     upvote.delete()
@@ -64,9 +70,9 @@ class UpdateUpvotes(APIView):
                 upvote.isUpvote = not upvote.isUpvote
                 upvote.save()
             Blog.objects.filter(id = bId).update(upvoteValue=F('upvoteValue')+vote)
-            return Response('voted', status=status.HTTP_202_ACCEPTED)
-        except:
-            return Response('unauthorized', status=status.HTTP_401_UNAUTHORIZED)
+            return Response(f'{self.request.user.id}', status=status.HTTP_202_ACCEPTED)
+        except Exception as error:
+            return Response(error, status=status.HTTP_401_UNAUTHORIZED)
 
 class SpecificBlog(APIView):
     permission_classes = [AllowAny]
@@ -115,8 +121,8 @@ class BlogPostCreate(APIView):
 class CreateUserView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
-        users = User.objects.all()
-        serializer = userSerializer(users, many=True)
+        users = User.objects.get(id=request.GET.get('id'))
+        serializer = userSerializer(users)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):

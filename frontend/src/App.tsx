@@ -10,13 +10,31 @@ import BlogView from './pages/BlogView'
 import IsLoggedIn from './components/ProtectedRoute'
 import NavBar from './components/NavBar'
 import './index.css'
+import { useEffect } from 'react'
+import api from './api'
 
 function Logout() {
   localStorage.clear()
   return <Navigate to="/login" />
 }
 
+interface upvote {
+  blog: number,
+  author: number,
+  isUpvote: boolean
+}
+
 function App() {
+  useEffect(() => {
+    getUpvotes()
+  },[])
+  const getUpvotes = () => {
+    api.get('/api/blog/getupvotes/')
+    .then((res) => res.data)
+    .then((data: upvote[]) => {
+      localStorage.setItem('VOTE', JSON.stringify(data))
+    })  
+  } 
   return (
     <div className="min-h-screen bg-black text-white">
       <div className='max-w-screen-xl mx-auto p-4'>

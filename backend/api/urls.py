@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from .views import BlogPostCreate, TotalBlogList, MyBlogList, DeleteBlog, UpdateUpvotes, SpecificBlog, CreateComment, ViewComments
+from .views import BlogPostCreate, TotalBlogList, MyBlogList, DeleteBlog, UpdateUpvotes, SpecificBlog, CreateComment, ViewComments, UpvotesGet
 
 
 urlpatterns = [
@@ -11,5 +11,6 @@ urlpatterns = [
     path('blog/delete/<int:pk>/', DeleteBlog.as_view(), name = 'delete-blog'),
     path('blog/posts/changeUpvote/', UpdateUpvotes.as_view(), name = 'change-upvote'),
     path('blog/createComment/', CreateComment.as_view(), name = 'blog-createComments' ),
-    path('blog/comments/', ViewComments.as_view(), name = 'blog-comments' )
+    path('blog/comments/', ViewComments.as_view(), name = 'blog-comments' ),
+    path('blog/getupvotes/', UpvotesGet.as_view(), name = 'test')
 ]

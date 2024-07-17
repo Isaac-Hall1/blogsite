@@ -17,6 +17,12 @@ const Form: React.FC<myProps> = ({method}) => {
         refresh: string
     }
 
+    interface upvote {
+        blog: number,
+        author: number,
+        isUpvote: boolean
+    }
+
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
 
@@ -28,12 +34,17 @@ const Form: React.FC<myProps> = ({method}) => {
             await api.post('/api/token/', {username, password})
             .then((res) => res.data)
             .then((data: loginResponse) => {
+                    console.log(data)
                     localStorage.setItem(ACCESS_TOKEN, data.access)
                     localStorage.setItem(REFRESH_TOKEN, data.refresh)
-                    console.log(localStorage.getItem(ACCESS_TOKEN))
                     navigate('/home')
                 }
             )
+            await api.get('/api/blog/getupvotes/')
+            .then((res) => res.data)
+            .then((data: upvote[]) => {
+                localStorage.setItem('VOTE', JSON.stringify(data))
+            })  
         } catch (error){
             if(method === 'Register')
                 alert('Your password must be at least 9 characters long or your username is already in use')
@@ -45,12 +56,12 @@ const Form: React.FC<myProps> = ({method}) => {
     }
 
     return (
-        <div className="w-full max-w-md p-4 rounded-lg shadow sm:p-6 md:p-8 bg-gray-800 border-gray-700">
-            <form onSubmit={handleSubmit} className="space-y-16">
-                <h1 className="text-3xl font-medium text-white">{method}</h1>
+        <div className="w-full max-w-md border p-4 rounded-lg shadow sm:p-6 md:p-8 border-white">
+            <form onSubmit={handleSubmit} className="space-y-8">
+                <h1 className="text-3xl font-bold text-white">{method}</h1>
                     <div>
                         <input
-                            className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                            className="text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             type= 'text'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
@@ -59,14 +70,14 @@ const Form: React.FC<myProps> = ({method}) => {
                     </div>
                     <div>
                         <input
-                            className="text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
+                            className="text-sm font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-5 bg-gray-600 border-gray-500 placeholder-gray-400 text-white"
                             type = 'password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                         />
                     </div>
-                <button className="w-full text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm p-5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type='submit'>{method}</button>
+                <button className="font-bold text-lg w-full text-white focus:ring-4 focus:outline-none rounded-lg p-5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800" type='submit'>{method}</button>
             </form>
         </div>
     )

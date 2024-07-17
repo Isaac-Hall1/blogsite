@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .upvBtn-primary {
+    @apply text-black rounded-sm sm:px-2 sm:text-right text-center hover:cursor-pointer bg-green-400 border border-black hover:border-spacing-2 hover:border-green-300;
+  }
+  .upvBtn-clicked {
+    @apply text-black rounded-sm sm:px-2 sm:text-right text-center hover:cursor-pointer bg-green-900 border border-black hover:border-spacing-2 hover:border-green-300;
+  }
+  .dvtBtn-primary {
+    @apply text-black rounded-sm sm:px-1 sm:text-left text-center hover:cursor-pointer bg-red-600 border border-black hover:border-spacing-2 hover:border-red-400;
+  }
+  .dvtBtn-clicked {
+    @apply text-black rounded-sm sm:px-1 sm:text-left text-center hover:cursor-pointer bg-red-900 border border-black hover:border-spacing-2 hover:border-red-400;
+  }
+}

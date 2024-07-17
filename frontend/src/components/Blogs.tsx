@@ -35,14 +35,14 @@ function BlogForm(){
             <form onSubmit={handleSubmit} className="form-container">
                 <h1>Blog</h1>
                 <input
-                    className="form-input"
+                    className="text-black"
                     type= 'text'
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Title"
                 />
                 <input
-                    className="form-input"
+                    className="text-black"
                     type = 'text'
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
