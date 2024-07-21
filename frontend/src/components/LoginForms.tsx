@@ -34,10 +34,9 @@ const Form: React.FC<myProps> = ({method}) => {
             await api.post('/api/token/', {username, password})
             .then((res) => res.data)
             .then((data: loginResponse) => {
-                    console.log(data)
                     localStorage.setItem(ACCESS_TOKEN, data.access)
                     localStorage.setItem(REFRESH_TOKEN, data.refresh)
-                    navigate('/home')
+                    navigate('/')
                 }
             )
             await api.get('/api/blog/getupvotes/')
