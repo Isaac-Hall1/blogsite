@@ -6,7 +6,7 @@ function NavBar(){
             </div>
             <div className=" flex flex-grow items-center">
                 <div className="flex flex-initial text-sm flex-grow">
-                    <a href='http://localhost:5173/home' className=" focus:text-teal-600  inline-block mt-0 text-teal-200 hover:text-white mr-4">Home</a>
+                    <a href='http://localhost:5173/' className=" focus:text-teal-600  inline-block mt-0 text-teal-200 hover:text-white mr-4">Home</a>
                     <a href='http://localhost:5173/createblog' className="  focus:text-teal-600 inline-block mt-0 text-teal-200 hover:text-white mr-4">Create Blog</a>
                     <a href='http://localhost:5173/myposts' className="  focus:text-teal-600 inline-block mt-0 text-teal-200 hover:text-white mr-4">Your Posts</a>
                 </div>
