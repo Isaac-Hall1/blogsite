@@ -10,8 +10,6 @@ import BlogView from './pages/BlogView'
 import IsLoggedIn from './components/ProtectedRoute'
 import NavBar from './components/NavBar'
 import './index.css'
-import { useEffect } from 'react'
-import api from './api'
 
 function Logout() {
   localStorage.clear()
