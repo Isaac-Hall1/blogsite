@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react"
 import api from "../api"
-import { useNavigate } from "react-router-dom"
 
 interface MyProps {
     post: number
