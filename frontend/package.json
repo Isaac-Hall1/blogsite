@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.13",
+    "@tinymce/tinymce-react": "^5.1.1",
     "axios": "^1.7.2",
+    "html-react-parser": "^5.1.12",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.23.1"
+    "react-router-dom": "^6.23.1",
+    "tinymce": "^7.2.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

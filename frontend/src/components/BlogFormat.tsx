@@ -9,6 +9,7 @@ interface myProps {
         id: number,
         title: string,
         content: string,
+        htmlContent:string,
         created_at: string,
         upvoteValue: number
     }
@@ -158,8 +159,10 @@ const Blog: React.FC<myProps> = ({ Blog, mypost, blogview}) => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-start pt-10'>
-                        <p className='text-left'>{Blog.content}</p>
+                    <div className='pt-10'>
+                        <div className='prose prose-invert lg:max-w-screen-lg text-white'>
+                            <div className= 'w-screen-lg text-white' dangerouslySetInnerHTML={{ __html: Blog.htmlContent }} />
+                        </div>
                     </div>
                 </div>
             </>

@@ -11,6 +11,7 @@ interface BlogType {
     id: number,
     title: string,
     content: string,
+    htmlContent: string,
     created_at: string,
     upvoteValue: number,
 }
@@ -29,10 +30,10 @@ const blogObject: BlogType = {
     id: -1,
     title: '',
     content: '',
+    htmlContent: '',
     created_at: '',
     upvoteValue: -1
 }
-
 
 
 function BlogView(){
@@ -111,13 +112,15 @@ function BlogView(){
     <div>
         <div>
             <Blog Blog={blog} mypost={false} blogview={true}/>
-            <button onClick={handleCreateComment}>{content}</button>
-            {creatingComment ? (
-                    comments.map((comment) => <Comment Comment={comment} key={comment.cId}/>)
-                ) : (
-                    <CreateComment post={blogId}/>
-                )
-            }
+            <div className="max-w-screen-lg mx-auto">
+                <button className='bg-blue-600 rounded-md py-2 px-6' onClick={handleCreateComment}>{content}</button>
+                {creatingComment ? (
+                        comments.map((comment) => <Comment Comment={comment} key={comment.cId}/>)
+                    ) : (
+                        <CreateComment post={blogId}/>
+                    )
+                }
+            </div>
         </div>
     </div>
     );

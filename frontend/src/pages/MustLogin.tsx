@@ -9,7 +9,7 @@ function MustLogin(){
 
   return( <div>
     <h1>You must be Logged in to do this or commit this action</h1>
-    <button onClick={clickHandler}>Navigate to Login</button>
+    <button className='bg-blue-500' onClick={clickHandler}>Navigate to Login</button>
   </div> )
 }
 

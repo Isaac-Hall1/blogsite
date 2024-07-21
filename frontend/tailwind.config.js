@@ -4,8 +4,11 @@ export default {
     './src/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
   },
   darkMode: 'class', // Use 'media' if you want to enable dark mode based on user's system preference
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };

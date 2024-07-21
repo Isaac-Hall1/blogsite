@@ -7,6 +7,7 @@ interface Blog {
   id: number,
   title: string,
   content: string,
+  htmlContent: string,
   created_at: string,
   upvoteValue: number
 }
@@ -29,7 +30,9 @@ function MyPosts(){
 
   return( 
   <div>
-    <h2>My Blogs</h2>
+    <div className="p-3">
+      <h1 className="text-6xl font-bold flex justify-center">Your Posts</h1>
+    </div>
     {blogs.map((blog) => <Blog Blog={blog} mypost={true} blogview={false} key={blog.id}/>)}
   </div>
   );

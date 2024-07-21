@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Blog(models.Model):
     title = models.CharField(max_length=80)
     content = models.TextField()
+    htmlContent = models.TextField(default='')
     created_at = models.DateTimeField(auto_now_add=True)
     upvoteValue = models.IntegerField(default=0)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')

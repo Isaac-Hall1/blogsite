@@ -16,18 +16,22 @@ const CreateComment: React.FC<MyProps> = ({post}) => {
             if(res.status !== 201) alert('failed to create comment')
             window.location.reload()
         })
-        .catch((error) => console.log(error))
+        .catch(() => {
+            alert('comment too long')
+        })
     }
 
     return (
-        <form onSubmit={handleSubmit} className="form-container">
-            <input
-                type="text"
+        <form onSubmit={handleSubmit} className="pt-5 flex flex-col">
+            <textarea
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                className="w-2/5 pb-10 text-black text-wrap rounded-md pl-2"
                 placeholder="Text: Cannot be longer than 200 characters"
             />
-            <button type="submit">Submit Comment</button>
+            <div className="justify-start py-3">
+                <button className='font-bold text-lg w-2/5 text-white focus:ring-4 focus:outline-none rounded-lg p-2 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800' type="submit">Submit Comment</button>
+            </div>
         </form>
     );
 }
