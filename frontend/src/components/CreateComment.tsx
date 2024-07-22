@@ -16,7 +16,7 @@ const CreateComment: React.FC<MyProps> = ({post}) => {
         .catch(() => {
             alert('comment too long')
         })
-        window.location.reload
+        window.location.href = window.location.href;
     }
 
     return (
