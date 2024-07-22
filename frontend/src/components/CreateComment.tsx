@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useState, } from "react"
 import api from "../api"
 
 interface MyProps {
@@ -12,11 +12,11 @@ const CreateComment: React.FC<MyProps> = ({post}) => {
         await api.post('/api/blog/createComment/', {post, content})
         .then((res)=>{
             if(res.status !== 201) alert('failed to create comment')
-            window.location.reload
         })
         .catch(() => {
             alert('comment too long')
         })
+        window.location.reload
     }
 
     return (
