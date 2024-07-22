@@ -15,6 +15,7 @@ const CreateComment: React.FC<MyProps> = ({post}) => {
         .then((res)=>{
             if(res.status !== 201) alert('failed to create comment')
             nav('/')
+            nav('/blog/' + post)
         })
         .catch(() => {
             alert('comment too long')
