@@ -14,7 +14,7 @@ const CreateComment: React.FC<MyProps> = ({post}) => {
         await api.post('/api/blog/createComment/', {post, content})
         .then((res)=>{
             if(res.status !== 201) alert('failed to create comment')
-            nav('/blog/' + localStorage.getItem('BLOGID'))
+            nav('/blog/' + post)
         })
         .catch(() => {
             alert('comment too long')
