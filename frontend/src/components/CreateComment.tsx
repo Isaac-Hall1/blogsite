@@ -1,6 +1,5 @@
 import { FormEvent, useState } from "react"
 import api from "../api"
-import { useNavigate } from "react-router-dom"
 
 interface MyProps {
     post: number
@@ -8,14 +7,12 @@ interface MyProps {
 
 const CreateComment: React.FC<MyProps> = ({post}) => {
     const [content, setContent] = useState('')
-    const nav = useNavigate()
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault()
         await api.post('/api/blog/createComment/', {post, content})
         .then((res)=>{
             if(res.status !== 201) alert('failed to create comment')
-            nav('/')
-            nav('/blog/' + post)
+            window.location.reload()
         })
         .catch(() => {
             alert('comment too long')
